@@ -1,0 +1,122 @@
+::-webkit-input-placeholder {
+   color: #ababab !important;
+}
+
+:-moz-placeholder {
+   color: #ababab !important;
+}
+
+::-moz-placeholder {
+   color: #ababab !important;
+}
+
+:-ms-input-placeholder {  
+   color: #ababab !important;
+}
+
+boxshadow(x,y,z,color,isInset = false)
+	if isInset == false
+		box-shadow x y z color
+	else
+		box-shadow inset x y z color
+
+roundborder(x)
+	-moz-border-radius x
+	-webkit-border-radius x
+	border-radius x
+
+unselectable()
+	-moz-user-select -moz-none
+	-khtml-user-select none
+	-webkit-user-select none
+
+selectable()
+	-moz-user-select -moz-text
+	-khtml-user-select text
+	-webkit-user-select text
+
+set_font(ff = opensans_regular, fz = 10, lh = auto, c = black, ta = none, tt = none)
+	font-family ff
+	font-size fz
+	line-height lh
+	color c
+	text-align ta
+	text-transform tt
+
+dimensions(w = 40px, h = 40px, bg = transparent)
+	width w
+	height h
+	background bg
+
+none()
+	display none
+
+inline()
+	display inline
+	
+block()
+	display block
+	
+absolute()
+	position absolute
+
+relative()
+	position relative
+
+fixed()
+	position fixed
+	
+block-relative()
+	block()
+	relative()
+
+block-relative-left()
+	block()
+	relative()
+	float left
+	
+block-relative-right()
+	block()
+	relative()
+	float right
+
+
+block-absolute()
+	block()
+	absolute()
+	
+image(src)
+	url('../res/img/'+src)
+	
+antialiased()
+	-moz-font-smoothing antialiased
+	-webkit-font-smoothing antialiased	
+	
+prefix(what, args...)
+	-ms-{what} args
+	-o-{what} args
+	-webkit-{what} args
+	-moz-{what} args
+	{what} args
+	
+transition(args...)
+	prefix('transition', args)
+	
+transform(args...)
+	prefix('transform', args)
+
+opensans(fz = 10, lh = auto, c = white, ta = none, tt = none)
+	set_font('Open Sans', fz, lh, c, ta, tt)
+
+accelerate()
+	transform translate3d(0,0,0)
+	-webkit-transform translate3d(0,0,0)
+	-moz-transform translateZ(30px)
+
+	
+support-for-ie ?= true
+
+    opacity(n)
+      opacity n
+      if support-for-ie
+        filter unquote('progid:DXImageTransform.Microsoft.Alpha(Opacity=' + round(n * 100) + ')')

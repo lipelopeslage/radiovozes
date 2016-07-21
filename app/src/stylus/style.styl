@@ -1,0 +1,215 @@
+@import 'utils.styl'
+@import 'fonts.styl'
+
+$orange = #e85014
+$lead = #34342b
+
+#rv-player-new
+	block-relative()
+	width 100%
+	border-top 1px solid #f7f7f7
+	padding 8px 0
+	background-color $lead
+	
+	.holder
+		block-relative()
+		max-width 1280px
+		margin 0 auto
+		.logo
+			relative()
+			dimensions(20px, 20px)
+			display inline-block
+			top 2px
+			margin-right 12px
+		
+		.controls
+			relative()
+			vertical-align top
+			display inline-block
+			.toggle
+				set_font('Lato', 12px, 20px, white, left, uppercase)
+				relative()
+				background-color transparent
+				cursor pointer
+				border 0
+				display inline-block
+				
+			.volume
+				relative()
+				dimensions(20px, 20px)
+				display inline-block
+				margin-right -1px
+				margin-left 15px
+				top 4px
+				&:before
+					block-relative()
+					set_font('vz', 16px, 16px, #fff, left, uppercase)
+					cursor pointer
+					z-index 1
+					content '\e07f'
+				.hit
+					block-absolute()
+					dimensions(30px, 43px)
+					cursor pointer
+					top -13px
+					left -7px
+					
+			a
+				relative()
+				set_font('Lato', 16px, 16px, #fff, left)
+				cursor pointer
+				margin-left 6px
+				top 2px
+				font-weight 700
+				text-decoration none
+				display inline-block
+				&:hover
+					text-decoration underline
+			
+		.label
+			relative()
+			set_font('Lato', 14px, 18px, #fff, left, uppercase)
+			top -2px
+			vertical-align top
+			margin-left 10px
+			font-weight 400
+			display inline-block
+			&:before
+				relative()
+				set_font('vz', 16px, 22px, #fff, left, uppercase)
+				top 5px
+				margin-right 4px
+				display inline-block
+				content '\e084'
+
+		.schedule
+			block-absolute()
+			set_font('Lato', 15px, 15px, #fff, left)
+			roundborder(2px)
+			transition(.2s, linear)
+			none()
+			top -1px
+			right 0
+			background-color $orange
+			padding 5px 8px 7px 8px
+			text-decoration none
+			&:hover
+				background-color #b94010
+			
+				
+		*
+			font-weight normal
+			-webkit-font-smoothing antialiased
+		
+
+@media all and (max-width: 767px)
+	#rv-player-new 
+		padding-top 8px
+		.holder
+			.logo
+				none()
+			.controls
+				padding-left 46px
+				.toggle
+					span
+						roundborder(2px)
+						padding 2px 10px 3px 10px
+						background-color $orange
+					&:before
+						block-absolute()
+						set_font(vz, 20px, 20px, $orange)
+						top 12px
+						left -36px
+						content '\e078'
+					&:after
+						block-absolute()
+						dimensions(36px, 36px)
+						roundborder(30px)
+						border 2px solid #fff
+						top 2px
+						left -46px
+						content ''
+					&.playing
+						&:before
+							left -34px
+							content '\e077'
+				a
+					margin-left 0
+				.volume
+					none()
+			.label
+				block()	
+				margin-top 0px
+				margin-left 50px
+			
+
+@media all and (min-width: 768px)
+	#rv-player-new .holder
+		.controls			
+			padding-left 24px
+			.toggle
+				roundborder(0 6px 6px 0)
+				padding 0 10px
+				height 20px
+				background-color $orange
+				&:before
+					block-absolute()
+					dimensions(24px, 20px, #d7d7d7)
+					roundborder(2px 0 0 2px)				
+					color $lead
+					text-indent 6px
+					font-family vz
+					top 0
+					left -24px
+					content '\e078'
+				&.playing:before
+					text-indent 8px
+					content '\e077'
+			.volume
+				.slider
+					block-relative()
+					dimensions(40px, 110px, $lead)
+					none()
+					left -12px
+					top -138px
+					z-index 0
+					.progress_bg
+						block-relative()
+						dimensions(10px, 85px, #fff)
+						roundborder(5px)
+						top 15px
+						left 15px
+						
+					.progress
+						block-absolute()
+						dimensions(100%, 100%, $orange)
+						roundborder(5px)
+						border-top 2px solid $orange
+						bottom -1px
+						left 0
+						
+					.dragger
+						block-relative()
+						dimensions(8px, 8px, white)
+						roundborder(10px)
+						cursor pointer
+						left -1px
+						border 2px solid $orange
+						z-index 1
+				
+				&:hover
+					.slider
+						block()
+						
+		.label
+			relative()
+			display inline-block
+		.schedule
+			block()
+
+
+@media all and (max-width: 1299px)
+	#rv-player-new .holder
+		margin 0 10px
+		
+				

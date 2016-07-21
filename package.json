@@ -1,0 +1,21 @@
+
+{
+  "name": "radio-vozes-plugin",
+  "version": "0.0.1",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "startNodemon": "nodemon app.js"
+  },
+  "author": "Felipe Lopes Lage",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies":{
+    "gulp": "^3.9.0",
+    "gulp-watch": "^4.3.1",
+    "gulp-stylus": "^2.0.5",
+    "gulp-browserify": "*",
+    "gulp-concat": "*"
+  }
+}

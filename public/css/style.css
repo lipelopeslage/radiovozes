@@ -106,6 +106,16 @@
   text-decoration: none;
   display: inline-block;
 }
+#rv-player-new .holder .controls a img {
+  position: relative;
+  margin-right: 5px;
+  margin-left: 5px;
+  width: 55px;
+  background-color: #fff;
+  padding: 1px 3px 3px;
+  vertical-align: middle;
+  top: -4px;
+}
 #rv-player-new .holder .controls a:hover {
   text-decoration: underline;
 }

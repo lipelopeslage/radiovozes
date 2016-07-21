@@ -58,6 +58,9 @@
   border: 0;
   display: inline-block;
 }
+#rv-player-new .holder .controls .toggle:focus {
+  outline: 0 none;
+}
 #rv-player-new .holder .controls .volume {
   position: relative;
   width: 20px;
@@ -126,7 +129,7 @@
   line-height: 18px;
   color: #fff;
   text-align: left;
-  text-transform: uppercase;
+  text-transform: none;
   top: -2px;
   vertical-align: top;
   margin-left: 10px;
@@ -204,8 +207,8 @@
     text-align: none;
     text-transform: none;
     top: 12px;
-    left: -36px;
-    content: '\e078';
+    left: -34px;
+    content: '\e077';
   }
   #rv-player-new .holder .controls .toggle:after {
     display: block;
@@ -222,8 +225,8 @@
     content: '';
   }
   #rv-player-new .holder .controls .toggle.playing:before {
-    left: -34px;
-    content: '\e077';
+    left: -36px;
+    content: '\e078';
   }
   #rv-player-new .holder .controls a {
     margin-left: 0;
@@ -259,15 +262,15 @@
     -webkit-border-radius: 2px 0 0 2px;
     border-radius: 2px 0 0 2px;
     color: #34342b;
-    text-indent: 6px;
     font-family: vz;
     top: 0;
     left: -24px;
-    content: '\e078';
-  }
-  #rv-player-new .holder .controls .toggle.playing:before {
     text-indent: 8px;
     content: '\e077';
+  }
+  #rv-player-new .holder .controls .toggle.playing:before {
+    text-indent: 6px;
+    content: '\e078';
   }
   #rv-player-new .holder .controls .volume .slider {
     display: block;

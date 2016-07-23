@@ -9,20 +9,21 @@ module.exports = {
 		utils.fetchStreamURL(function(streamData){
 			var audioDOM;
 			streamURL = streamData[0].url;
-			utils.fetchLiveInfo(function(res){
-				player = this.buildPlayer(res);
-				audioDOM = player.querySelectorAll('audio')[0];
-				utils.initStream(audioDOM);
-				this.bindEvents();
-				ui.bindEvents();
-			}.bind(this));
+			player = this.buildPlayer();
+			audioDOM = player.querySelectorAll('audio')[0];
+			utils.initStream(audioDOM);
+			this.bindEvents();
+			ui.bindEvents();
+			/*utils.fetchLiveInfo(function(res){
+				
+			}.bind(this));*/
 			
 		}.bind(this));
 	},
-	buildPlayer: function(liveData){
+	buildPlayer: function(){
 		
 		ui = require('./ui.js');
-		ui.init(type || 'default', embedFonts, liveData);
+		ui.init(type || 'default', embedFonts);		
 
 		return ui.getDOM();
 	},
@@ -35,7 +36,22 @@ module.exports = {
 			utils.pauseAudio();
 		});
 
-		ui.setStreamURL(streamURL);
+		player.addEventListener('volume', function(e){
+			utils.setVolume(e.detail.value);
+		});
+
+		player.setStreamURL(streamURL);
+
+		this.updateDisplay();
+	},
+	updateDisplay: function(){
+		utils.fetchLiveInfo(function(res){
+			player.updateDisplay(res);
+			utils.getShowThumb(function(res){
+				player.updateThumb(res);
+			})
+			setTimeout(this.updateDisplay.bind(this), 3000);
+		}.bind(this));
 	}
 
 }

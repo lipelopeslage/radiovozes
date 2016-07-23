@@ -4,7 +4,7 @@ var radio_vozes = require('./radio_vozes/main.js');
 	1) String - Tipo de player ('box' ou null)
 	2) Booleano - Embedar font ou não
 */
-radio_vozes.init('box', true);
+radio_vozes.init('', true);
 
 /*var request = new XDomainRequest();
 

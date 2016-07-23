@@ -4,6 +4,13 @@
 $orange = #e85014
 $lead = #34342b
 
+unselectable()
+	cursor default
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;
+
 #rv-player-new
 	block-relative()
 	width 100%
@@ -49,6 +56,12 @@ $lead = #34342b
 					cursor pointer
 					z-index 1
 					content '\e07f'
+				&.mid_volume
+					&:before
+						content '\e07e'
+				&.muted
+					&:before
+						content '\e080'
 				.hit
 					block-absolute()
 					dimensions(30px, 43px)
@@ -62,18 +75,19 @@ $lead = #34342b
 				cursor pointer
 				margin-left 6px
 				top 2px
-				font-weight 700
 				text-decoration none
 				display inline-block
-				img
+				.show-name
+					font-weight 700
+				.thumb img
 					relative()
 					margin-right 5px
 					margin-left 5px
-					width 55px
-					background-color #fff
-					padding 1px 3px 3px
+					height 24px
+					//background-color #fff
+					//padding 1px 3px 3px
 					vertical-align middle
-					top -4px
+					top -2px
 				&:hover
 					text-decoration underline
 			
@@ -106,11 +120,32 @@ $lead = #34342b
 			text-decoration none
 			&:hover
 				background-color #b94010
-			
+	*
+		font-weight normal
+		-webkit-font-smoothing antialiased		
+	&[data-type=box]
+		height 160px
+		.holder 
+			.controls 
+				padding-left 0
+				.toggle
+					span
+						relative()
+						top 48px
+					&:before
+						left 27px
+					&:after
+						left 14px
+				.show-info 
+					margin-left 10px
+					.thumb
+						margin-bottom 5px
+						img
+							margin: 0
+							width 200px
+			.label
+				margin-left 76px
 				
-		*
-			font-weight normal
-			-webkit-font-smoothing antialiased
 		
 
 @media all and (max-width: 767px)
@@ -121,6 +156,7 @@ $lead = #34342b
 				none()
 			.controls
 				padding-left 46px
+				
 				.toggle
 					span
 						roundborder(2px)
@@ -146,7 +182,11 @@ $lead = #34342b
 							left -36px
 							content '\e078'
 				a
+					display inline-block
 					margin-left 0
+					vertical-align top
+					.thumb
+						none()
 				.volume
 					none()
 			.label
@@ -157,7 +197,9 @@ $lead = #34342b
 
 @media all and (min-width: 768px)
 	#rv-player-new .holder
-		.controls			
+		.controls
+			*
+				unselectable()			
 			padding-left 24px
 			.toggle
 				roundborder(0 6px 6px 0)
@@ -184,7 +226,7 @@ $lead = #34342b
 					dimensions(40px, 110px, $lead)
 					none()
 					left -12px
-					top -138px
+					top -132px
 					z-index 0
 					.progress_bg
 						block-relative()
@@ -200,11 +242,21 @@ $lead = #34342b
 						border-top 2px solid $orange
 						bottom -1px
 						left 0
-						
+					
+					.dragger_holder
+						block-relative()
+						dimensions(10px, 76px/*, white*/)
+						roundborder(5px)
+						//opacity(.5)
+						padding-bottom 10px
+						top -70px
+						left 15px
+							
 					.dragger
 						block-relative()
 						dimensions(8px, 8px, white)
 						roundborder(10px)
+						//margin-top -8px
 						cursor pointer
 						left -1px
 						border 2px solid $orange

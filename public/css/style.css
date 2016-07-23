@@ -84,6 +84,12 @@
   z-index: 1;
   content: '\e07f';
 }
+#rv-player-new .holder .controls .volume.mid_volume:before {
+  content: '\e07e';
+}
+#rv-player-new .holder .controls .volume.muted:before {
+  content: '\e080';
+}
 #rv-player-new .holder .controls .volume .hit {
   display: block;
   position: absolute;
@@ -105,19 +111,19 @@
   cursor: pointer;
   margin-left: 6px;
   top: 2px;
-  font-weight: 700;
   text-decoration: none;
   display: inline-block;
 }
-#rv-player-new .holder .controls a img {
+#rv-player-new .holder .controls a .show-name {
+  font-weight: 700;
+}
+#rv-player-new .holder .controls a .thumb img {
   position: relative;
   margin-right: 5px;
   margin-left: 5px;
-  width: 55px;
-  background-color: #fff;
-  padding: 1px 3px 3px;
+  height: 24px;
   vertical-align: middle;
-  top: -4px;
+  top: -2px;
 }
 #rv-player-new .holder .controls a:hover {
   text-decoration: underline;
@@ -176,9 +182,38 @@
 #rv-player-new .holder .schedule:hover {
   background-color: #b94010;
 }
-#rv-player-new .holder * {
+#rv-player-new * {
   font-weight: normal;
   -webkit-font-smoothing: antialiased;
+}
+#rv-player-new[data-type=box] {
+  height: 160px;
+}
+#rv-player-new[data-type=box] .holder .controls {
+  padding-left: 0;
+}
+#rv-player-new[data-type=box] .holder .controls .toggle span {
+  position: relative;
+  top: 48px;
+}
+#rv-player-new[data-type=box] .holder .controls .toggle:before {
+  left: 27px;
+}
+#rv-player-new[data-type=box] .holder .controls .toggle:after {
+  left: 14px;
+}
+#rv-player-new[data-type=box] .holder .controls .show-info {
+  margin-left: 10px;
+}
+#rv-player-new[data-type=box] .holder .controls .show-info .thumb {
+  margin-bottom: 5px;
+}
+#rv-player-new[data-type=box] .holder .controls .show-info .thumb img {
+  margin: 0;
+  width: 200px;
+}
+#rv-player-new[data-type=box] .holder .label {
+  margin-left: 76px;
 }
 @media all and (max-width: 767px) {
   #rv-player-new {
@@ -229,7 +264,12 @@
     content: '\e078';
   }
   #rv-player-new .holder .controls a {
+    display: inline-block;
     margin-left: 0;
+    vertical-align: top;
+  }
+  #rv-player-new .holder .controls a .thumb {
+    display: none;
   }
   #rv-player-new .holder .controls .volume {
     display: none;
@@ -243,6 +283,13 @@
 @media all and (min-width: 768px) {
   #rv-player-new .holder .controls {
     padding-left: 24px;
+  }
+  #rv-player-new .holder .controls * {
+    cursor: default;
+    -webkit-user-select: none; /* Chrome all / Safari all */
+    -moz-user-select: none; /* Firefox all */
+    -ms-user-select: none; /* IE 10+ */
+    user-select: none;
   }
   #rv-player-new .holder .controls .toggle {
     -moz-border-radius: 0 6px 6px 0;
@@ -280,7 +327,7 @@
     background: #34342b;
     display: none;
     left: -12px;
-    top: -138px;
+    top: -132px;
     z-index: 0;
   }
   #rv-player-new .holder .controls .volume .slider .progress_bg {
@@ -307,6 +354,19 @@
     border-top: 2px solid #e85014;
     bottom: -1px;
     left: 0;
+  }
+  #rv-player-new .holder .controls .volume .slider .dragger_holder {
+    display: block;
+    position: relative;
+    width: 10px;
+    height: 76px /*, white*/;
+    background: transparent;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    padding-bottom: 10px;
+    top: -70px;
+    left: 15px;
   }
   #rv-player-new .holder .controls .volume .slider .dragger {
     display: block;

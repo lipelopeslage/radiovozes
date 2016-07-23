@@ -5,7 +5,7 @@ var radio_vozes = require('./radio_vozes/main.js');
 	1) String - Tipo de player ('box' ou null)
 	2) Booleano - Embedar font ou não
 */
-radio_vozes.init('box', true);
+radio_vozes.init('', true);
 
 /*var request = new XDomainRequest();
 
@@ -51,20 +51,21 @@ module.exports = {
 		utils.fetchStreamURL(function(streamData){
 			var audioDOM;
 			streamURL = streamData[0].url;
-			utils.fetchLiveInfo(function(res){
-				player = this.buildPlayer(res);
-				audioDOM = player.querySelectorAll('audio')[0];
-				utils.initStream(audioDOM);
-				this.bindEvents();
-				ui.bindEvents();
-			}.bind(this));
+			player = this.buildPlayer();
+			audioDOM = player.querySelectorAll('audio')[0];
+			utils.initStream(audioDOM);
+			this.bindEvents();
+			ui.bindEvents();
+			/*utils.fetchLiveInfo(function(res){
+				
+			}.bind(this));*/
 			
 		}.bind(this));
 	},
-	buildPlayer: function(liveData){
+	buildPlayer: function(){
 		
 		ui = require('./ui.js');
-		ui.init(type || 'default', embedFonts, liveData);
+		ui.init(type || 'default', embedFonts);		
 
 		return ui.getDOM();
 	},
@@ -77,17 +78,32 @@ module.exports = {
 			utils.pauseAudio();
 		});
 
-		ui.setStreamURL(streamURL);
+		player.addEventListener('volume', function(e){
+			utils.setVolume(e.detail.value);
+		});
+
+		player.setStreamURL(streamURL);
+
+		this.updateDisplay();
+	},
+	updateDisplay: function(){
+		utils.fetchLiveInfo(function(res){
+			player.updateDisplay(res);
+			utils.getShowThumb(function(res){
+				player.updateThumb(res);
+			})
+			setTimeout(this.updateDisplay.bind(this), 3000);
+		}.bind(this));
 	}
 
 }
 },{"./ui.js":3,"./utils.js":4}],3:[function(require,module,exports){
-var playerDOM, streamURL, liveData;
+var playerDOM, volumeDOM, streamURL, liveData;
 module.exports = {
-	init: function(type, embedFonts, liveData){
+	init: function(type, embedFonts){
 		if(embedFonts) this.appendHeader();
 		this.appendPlayer(type);
-		this.renderDisplay(liveData);
+		//this.renderDisplay(liveData);
 	},
 	setStreamURL: function(url){
 		var sources = playerDOM.querySelectorAll('audio source');
@@ -97,7 +113,8 @@ module.exports = {
 	},
 	appendPlayer: function(type){
 		playerDOM = this.getPlayerNode(type);
-		require('./volume_dragger.js')(playerDOM.querySelectorAll('.volume')[0]);
+		volumeDOM = playerDOM.querySelectorAll('.volume')[0]
+		require('./volume_dragger.js')(volumeDOM);
 		document.body.appendChild(playerDOM);
 	},
 	appendHeader: function(){
@@ -107,11 +124,14 @@ module.exports = {
 		node.setAttribute('type', 'text/css');
 		document.querySelectorAll('head')[0].appendChild(node);
 	},
-	renderDisplay: function(res){
-		var showInfo = playerDOM.querySelectorAll('.show-info')[0];
-		showInfo.innerHTML = res.shows.current.name;
-		showInfo.setAttribute('href', '/'+res.shows.current.url);
-		playerDOM.querySelectorAll('.label')[0].innerHTML = res.tracks.current.name;
+	updateDisplay: function(res){
+		var showInfo = playerDOM.querySelectorAll('.show-info')[0], info = res;
+		showInfo.querySelectorAll('.show-name')[0].innerHTML = info.shows.current.name;
+		showInfo.setAttribute('href', 'https://radiovozes.com/'+info.shows.current.url);
+		playerDOM.querySelectorAll('.label')[0].innerHTML = info.tracks.current.name;
+	},
+	updateThumb: function(img){
+		playerDOM.querySelectorAll('.show-info .thumb')[0].innerHTML = '<img src="'+img+'">';
 	},
 	getPlayerNode: function(type){
 		var node = document.createElement('div'), html = '';
@@ -120,9 +140,9 @@ module.exports = {
 		html += '<span class="logo"><svg width="20" height="20" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><g fill="#ffffff"><path d="M239.378 128c0 61.415-49.965 111.379-111.378 111.379-61.415 0-111.379-49.964-111.379-111.379C16.621 66.585 66.585 16.621 128 16.621c61.413 0 111.378 49.964 111.378 111.379zM128 0C57.42 0 0 57.42 0 128s57.42 128 128 128 128-57.42 128-128S198.58 0 128 0z"></path><path d="M121 40h14.934v44.804H121V40z"></path></g></svg></span>';
 		html += '<div class="controls"><button class="toggle"><span>No ar</span></button>';
 		html += this.getVolumeString()+this.getAudioString();
-		html += '<a class="show-info" href="https://radiovozes.com/radio-vozes"><img src=""><span>Rádio Vozes</span></a></div>';
+		html += '<a class="show-info" href="https://radiovozes.com/radio-vozes"><span class="thumb"></span><span class="show-name">Rádio Vozes</span></a></div>';
 		html += '<div class="label"><strong class="track">Nat Pethit - Romeo</strong></div>';
-		html += '<a class="schedule" href="/programacao">Programação</a>';
+		html += '<a class="schedule" href="https://radiovozes.com/programacao">Programação</a>';
 		html += '</div>';
 
 		node.setAttribute('id', 'rv-player-new');
@@ -139,15 +159,21 @@ module.exports = {
 	getVolumeString: function(){
 		var html = '';
 		html += '<span class="volume"><span class="slider">';
-		html += '<span class="progress_bg"><span class="progress"></span><span class="dragger"></span></span>';
-		html += '</span><span class="hit"></span></span>';
+		html += '<span class="progress_bg"><span class="progress"></span></span>';
+		html += '<span class="dragger_holder"><span class="dragger"></span></span></span><span class="hit"></span></span>';
 		return html;
 	},
 	getDOM: function(){
+		playerDOM.updateDisplay = this.updateDisplay;
+		playerDOM.setStreamURL = this.setStreamURL;
+		playerDOM.updateThumb = this.updateThumb;
 		return playerDOM;
 	},
 	bindEvents: function(){
 		var toggleBtn = playerDOM.querySelectorAll('.controls .toggle')[0];
+		volumeDOM.addEventListener('volume', function(e){
+			playerDOM.dispatchEvent(new CustomEvent('volume', {detail:{value:e.detail.value}}));
+		});
 		toggleBtn.onclick = function(){
 			if(!toggleBtn.className.match(/playing/g)){
 				toggleBtn.className = toggleBtn.className + ' playing';
@@ -162,23 +188,37 @@ module.exports = {
 },{"./volume_dragger.js":5}],4:[function(require,module,exports){
 var audioDOM;
 module.exports = {
-	ajaxCall: function(url, callback){
-		var api = document.createElement('script');
-		var time = new Date().getTime();
-		api.setAttribute('src',url+'?callback=callbackRVz'+time);
-		api.setAttribute('data-type', 'ajax');
-		window['callbackRVz'+time] = function(e){
-			var node = document.querySelectorAll('script[data-type=ajax]')[0];
-			document.querySelectorAll('head')[0].removeChild(node);
-			callback.call(this, e);
-			window['callbackRVz'+time] = null;
+	ajaxCall: function(url, callback, isCrossDomain){
+		var xhr, crossdomain;
+
+		crossdomain = isCrossDomain || false;
+
+		if(!isCrossDomain){
+			xhr = new XMLHttpRequest();
+			xhr.onreadystatechange = function(){
+				if(xhr.readyState == 4 && xhr.status == 200)
+					callback.call(this, xhr.responseText);
+			}
+			xhr.open('GET', url);
+			xhr.send();
+		}else{
+			var api = document.createElement('script');
+			var time = new Date().getTime();
+			api.setAttribute('src',url+'?callback=callbackRVz'+time);
+			api.setAttribute('data-type', 'ajax');
+			window['callbackRVz'+time] = function(e){
+				var node = document.querySelectorAll('script[data-type=ajax]')[0];
+				document.querySelectorAll('head')[0].removeChild(node);
+				callback.call(this, e);
+				window['callbackRVz'+time] = null;
+			}
+			document.querySelectorAll('head')[0].appendChild(api);
 		}
-		document.querySelectorAll('head')[0].appendChild(api);
 	},
 	fetchLiveInfo: function(callback){
 		this.ajaxCall('https://radiovozes.airtime.pro/api/live-info-v2', function(res){
 			callback.call(this, res);
-		});
+		}, true);
 	},
 	fetchStreamURL: function(callback){
 		this.ajaxCall('https://radiovozes.airtime.pro/api/station-metadata', function(res){
@@ -187,7 +227,14 @@ module.exports = {
 				items.push(res.stream_data[i]);
 			}
 			callback.call(this, items);
-		});
+		}, true);
+	},
+	getShowThumb: function(callback){
+		this.ajaxCall('https://api.radiovozes.com/v1/live', function(res){
+			var json = JSON.parse(res), image;
+			image = json[0].images.default;
+			callback.call(this, image);
+		})
 	},
 	initStream: function(dom){
 		audioDOM = dom;
@@ -197,33 +244,85 @@ module.exports = {
 	},
 	pauseAudio: function(){
 		audioDOM.pause();
+	},
+	setVolume: function(p){
+		audioDOM.volume = p;
 	}
 }
 },{}],5:[function(require,module,exports){
 module.exports = function(volumeDOM){
-	var slider = volumeDOM.querySelectorAll('.slider')[0], dragger = volumeDOM.querySelectorAll('.dragger')[0];
-	console.log('>', volumeDOM, dragger)
+	var slider = volumeDOM.querySelectorAll('.slider')[0], 
+		dragger = volumeDOM.querySelectorAll('.dragger')[0],
+		progressHolder = volumeDOM.querySelectorAll('.progress_bg')[0],
+		progressBar = progressHolder.querySelectorAll('.progress')[0],
+		draggerHolder = volumeDOM.querySelectorAll('.dragger_holder')[0];
+
+		
+	console.log('>', draggerHolder)
 
 
 	dragger.onmousedown = function(){
-		console.log('mousedown');
-		document.body.onmousemove = mouseMoveHandler;
+		//console.log('mousedown');
+		document.onmousemove = mouseMoveHandler;
 	}
-	dragger.onmouseup = function(){
-		console.log('mouseup');
-		document.body.onmousemove = null;
+	document.onmouseup = function(){
+		//console.log('mouseup');
+		document.onmousemove = null;
 	}
-	volumeDOM.onmouseout = function(){
-		console.log('mouse out')
+	draggerHolder.onmousedown=function(e){
+		var sliderHeight = slider.clientHeight, sliderBounds = slider.getBoundingClientRect();
+		var top = sliderBounds.top, left = sliderBounds.left;
+		var progressBounds = progressHolder.getBoundingClientRect();
+		var percent = ((e.clientY)-top)-progressHolder.offsetTop
+		percent = progressBounds.height - percent
+		percent = (percent/progressBounds.height)*100;
+
+		updateStatus(percent);
 	}
-	/*document.body.onmousemove = function(){
-		console.log('mousemove');
-	}*/
+	
 	function mouseMoveHandler(e){
 		var sliderHeight = slider.clientHeight, sliderBounds = slider.getBoundingClientRect();
 		var top = sliderBounds.top, left = sliderBounds.left;
-		console.log(top, left, e.clientY, e.screenY)
+		var progressBounds = progressHolder.getBoundingClientRect();
+		var percent = ((e.clientY)-top)-progressHolder.offsetTop
+		percent = progressBounds.height - percent
+		percent = (percent/progressBounds.height)*100;
+
+		//percent = progressBounds.height / percent
+		//console.log(top, left, e.clientY, e.screenY)
+		//console.log(progressHolder.offsetTop, progressBounds.height)
+		//console.log(percent/progressBounds.height)
+
 		
+		if(sliderBounds.top == 0){
+			document.onmousemove = null;
+			return;
+		}
+		
+		updateStatus(percent);		
+	}
+
+	function updateStatus(p){
+		if(p < 0)
+			p = 0;
+		else if(p > 100)
+			p = 100;
+
+		volumeDOM.dispatchEvent(new CustomEvent('volume', {detail:{value:p/100}}));
+		updateView(p);
+	}
+
+	function updateView(p){
+		if(p <= 50 && p > 0){
+			volumeDOM.className = "volume mid_volume";
+		}else if(p > 50){
+			volumeDOM.className = "volume";
+		}else{
+			volumeDOM.className = "volume muted";
+		}
+		console.log(p)
+		dragger.style.bottom = (p-100)+'%';
+		progressBar.style.height = p+'%';
 	}
 }
 },{}]},{},[1])

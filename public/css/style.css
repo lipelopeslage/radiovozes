@@ -230,7 +230,7 @@
   content: '';
 }
 #rv-player-new[data-type=box] .holder .controls .toggle.playing:before {
-  left: -36px;
+  left: 24px;
   content: '\e078';
 }
 #rv-player-new[data-type=box] .holder .controls a {
@@ -330,7 +330,7 @@
     content: '';
   }
   #rv-player-new:not([data-type=box]) .holder .controls .toggle.playing:before {
-    left: -36px;
+    left: 24px;
     content: '\e078';
   }
   #rv-player-new:not([data-type=box]) .holder .controls a {

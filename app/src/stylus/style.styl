@@ -4,6 +4,51 @@
 $orange = #e85014
 $lead = #34342b
 
+
+				
+mobileHolder()
+	.logo
+		none()
+	.controls
+		padding-left 46px
+		
+		.toggle
+			span
+				roundborder(2px)
+				padding 2px 10px 3px 10px
+				background-color $orange
+			&:before
+				block-absolute()
+				set_font(vz, 20px, 20px, $orange)
+				top 12px
+				left -34px
+				content '\e077'
+				
+			&:after
+				block-absolute()
+				dimensions(36px, 36px)
+				roundborder(30px)
+				border 2px solid #fff
+				top 2px
+				left -46px
+				content ''
+			&.playing
+				&:before
+					left -36px
+					content '\e078'
+		a
+			display inline-block
+			margin-left 0
+			vertical-align top
+			.thumb
+				none()
+		.volume
+			none()
+	.label
+		block()	
+		margin-top 0px
+		margin-left 50px	
+		
 unselectable()
 	cursor default
 	-webkit-user-select: none;  /* Chrome all / Safari all */
@@ -125,7 +170,8 @@ unselectable()
 		-webkit-font-smoothing antialiased		
 	&[data-type=box]
 		height 160px
-		.holder 
+		.holder
+			mobileHolder()
 			.controls 
 				padding-left 0
 				.toggle
@@ -138,65 +184,32 @@ unselectable()
 						left 14px
 				.show-info 
 					margin-left 10px
+					.show-name
+						block-relative()
+						padding 5px 0 2px 0
+						background-color $lead
+						margin-top -27px
 					.thumb
+						block()
+						min-height 60px
 						margin-bottom 5px
 						img
 							margin: 0
-							width 200px
+							width 214px
+							height auto
 			.label
 				margin-left 76px
-				
-		
+	
 
 @media all and (max-width: 767px)
-	#rv-player-new 
+	#rv-player-new:not([data-type=box])
 		padding-top 8px
 		.holder
-			.logo
-				none()
-			.controls
-				padding-left 46px
-				
-				.toggle
-					span
-						roundborder(2px)
-						padding 2px 10px 3px 10px
-						background-color $orange
-					&:before
-						block-absolute()
-						set_font(vz, 20px, 20px, $orange)
-						top 12px
-						left -34px
-						content '\e077'
-						
-					&:after
-						block-absolute()
-						dimensions(36px, 36px)
-						roundborder(30px)
-						border 2px solid #fff
-						top 2px
-						left -46px
-						content ''
-					&.playing
-						&:before
-							left -36px
-							content '\e078'
-				a
-					display inline-block
-					margin-left 0
-					vertical-align top
-					.thumb
-						none()
-				.volume
-					none()
-			.label
-				block()	
-				margin-top 0px
-				margin-left 50px
+			mobileHolder()
 			
 
 @media all and (min-width: 768px)
-	#rv-player-new .holder
+	#rv-player-new:not([data-type=box]) .holder
 		.controls
 			*
 				unselectable()			

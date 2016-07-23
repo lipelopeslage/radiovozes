@@ -189,6 +189,66 @@
 #rv-player-new[data-type=box] {
   height: 160px;
 }
+#rv-player-new[data-type=box] .holder .logo {
+  display: none;
+}
+#rv-player-new[data-type=box] .holder .controls {
+  padding-left: 46px;
+}
+#rv-player-new[data-type=box] .holder .controls .toggle span {
+  -moz-border-radius: 2px;
+  -webkit-border-radius: 2px;
+  border-radius: 2px;
+  padding: 2px 10px 3px 10px;
+  background-color: #e85014;
+}
+#rv-player-new[data-type=box] .holder .controls .toggle:before {
+  display: block;
+  position: absolute;
+  font-family: vz;
+  font-size: 20px;
+  line-height: 20px;
+  color: #e85014;
+  text-align: none;
+  text-transform: none;
+  top: 12px;
+  left: -34px;
+  content: '\e077';
+}
+#rv-player-new[data-type=box] .holder .controls .toggle:after {
+  display: block;
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  background: transparent;
+  -moz-border-radius: 30px;
+  -webkit-border-radius: 30px;
+  border-radius: 30px;
+  border: 2px solid #fff;
+  top: 2px;
+  left: -46px;
+  content: '';
+}
+#rv-player-new[data-type=box] .holder .controls .toggle.playing:before {
+  left: -36px;
+  content: '\e078';
+}
+#rv-player-new[data-type=box] .holder .controls a {
+  display: inline-block;
+  margin-left: 0;
+  vertical-align: top;
+}
+#rv-player-new[data-type=box] .holder .controls a .thumb {
+  display: none;
+}
+#rv-player-new[data-type=box] .holder .controls .volume {
+  display: none;
+}
+#rv-player-new[data-type=box] .holder .label {
+  display: block;
+  margin-top: 0px;
+  margin-left: 50px;
+}
 #rv-player-new[data-type=box] .holder .controls {
   padding-left: 0;
 }
@@ -205,34 +265,44 @@
 #rv-player-new[data-type=box] .holder .controls .show-info {
   margin-left: 10px;
 }
+#rv-player-new[data-type=box] .holder .controls .show-info .show-name {
+  display: block;
+  position: relative;
+  padding: 5px 0 2px 0;
+  background-color: #34342b;
+  margin-top: -27px;
+}
 #rv-player-new[data-type=box] .holder .controls .show-info .thumb {
+  display: block;
+  min-height: 60px;
   margin-bottom: 5px;
 }
 #rv-player-new[data-type=box] .holder .controls .show-info .thumb img {
   margin: 0;
-  width: 200px;
+  width: 214px;
+  height: auto;
 }
 #rv-player-new[data-type=box] .holder .label {
   margin-left: 76px;
 }
 @media all and (max-width: 767px) {
-  #rv-player-new {
+  #rv-player-new:not([data-type=box]) {
     padding-top: 8px;
   }
-  #rv-player-new .holder .logo {
+  #rv-player-new:not([data-type=box]) .holder .logo {
     display: none;
   }
-  #rv-player-new .holder .controls {
+  #rv-player-new:not([data-type=box]) .holder .controls {
     padding-left: 46px;
   }
-  #rv-player-new .holder .controls .toggle span {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle span {
     -moz-border-radius: 2px;
     -webkit-border-radius: 2px;
     border-radius: 2px;
     padding: 2px 10px 3px 10px;
     background-color: #e85014;
   }
-  #rv-player-new .holder .controls .toggle:before {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle:before {
     display: block;
     position: absolute;
     font-family: vz;
@@ -245,7 +315,7 @@
     left: -34px;
     content: '\e077';
   }
-  #rv-player-new .holder .controls .toggle:after {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle:after {
     display: block;
     position: absolute;
     width: 36px;
@@ -259,39 +329,39 @@
     left: -46px;
     content: '';
   }
-  #rv-player-new .holder .controls .toggle.playing:before {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle.playing:before {
     left: -36px;
     content: '\e078';
   }
-  #rv-player-new .holder .controls a {
+  #rv-player-new:not([data-type=box]) .holder .controls a {
     display: inline-block;
     margin-left: 0;
     vertical-align: top;
   }
-  #rv-player-new .holder .controls a .thumb {
+  #rv-player-new:not([data-type=box]) .holder .controls a .thumb {
     display: none;
   }
-  #rv-player-new .holder .controls .volume {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume {
     display: none;
   }
-  #rv-player-new .holder .label {
+  #rv-player-new:not([data-type=box]) .holder .label {
     display: block;
     margin-top: 0px;
     margin-left: 50px;
   }
 }
 @media all and (min-width: 768px) {
-  #rv-player-new .holder .controls {
+  #rv-player-new:not([data-type=box]) .holder .controls {
     padding-left: 24px;
   }
-  #rv-player-new .holder .controls * {
+  #rv-player-new:not([data-type=box]) .holder .controls * {
     cursor: default;
     -webkit-user-select: none; /* Chrome all / Safari all */
     -moz-user-select: none; /* Firefox all */
     -ms-user-select: none; /* IE 10+ */
     user-select: none;
   }
-  #rv-player-new .holder .controls .toggle {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle {
     -moz-border-radius: 0 6px 6px 0;
     -webkit-border-radius: 0 6px 6px 0;
     border-radius: 0 6px 6px 0;
@@ -299,7 +369,7 @@
     height: 20px;
     background-color: #e85014;
   }
-  #rv-player-new .holder .controls .toggle:before {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle:before {
     display: block;
     position: absolute;
     width: 24px;
@@ -315,11 +385,11 @@
     text-indent: 8px;
     content: '\e077';
   }
-  #rv-player-new .holder .controls .toggle.playing:before {
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle.playing:before {
     text-indent: 6px;
     content: '\e078';
   }
-  #rv-player-new .holder .controls .volume .slider {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume .slider {
     display: block;
     position: relative;
     width: 40px;
@@ -330,7 +400,7 @@
     top: -132px;
     z-index: 0;
   }
-  #rv-player-new .holder .controls .volume .slider .progress_bg {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume .slider .progress_bg {
     display: block;
     position: relative;
     width: 10px;
@@ -342,7 +412,7 @@
     top: 15px;
     left: 15px;
   }
-  #rv-player-new .holder .controls .volume .slider .progress {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume .slider .progress {
     display: block;
     position: absolute;
     width: 100%;
@@ -355,7 +425,7 @@
     bottom: -1px;
     left: 0;
   }
-  #rv-player-new .holder .controls .volume .slider .dragger_holder {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume .slider .dragger_holder {
     display: block;
     position: relative;
     width: 10px;
@@ -368,7 +438,7 @@
     top: -70px;
     left: 15px;
   }
-  #rv-player-new .holder .controls .volume .slider .dragger {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume .slider .dragger {
     display: block;
     position: relative;
     width: 8px;
@@ -382,14 +452,14 @@
     border: 2px solid #e85014;
     z-index: 1;
   }
-  #rv-player-new .holder .controls .volume:hover .slider {
+  #rv-player-new:not([data-type=box]) .holder .controls .volume:hover .slider {
     display: block;
   }
-  #rv-player-new .holder .label {
+  #rv-player-new:not([data-type=box]) .holder .label {
     position: relative;
     display: inline-block;
   }
-  #rv-player-new .holder .schedule {
+  #rv-player-new:not([data-type=box]) .holder .schedule {
     display: block;
   }
 }

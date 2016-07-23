@@ -3,7 +3,6 @@ module.exports = {
 	init: function(type, embedFonts){
 		if(embedFonts) this.appendHeader();
 		this.appendPlayer(type);
-		//this.renderDisplay(liveData);
 	},
 	setStreamURL: function(url){
 		var sources = playerDOM.querySelectorAll('audio source');

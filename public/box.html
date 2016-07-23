@@ -15,16 +15,18 @@
 		}
 		body #rv-player-new{
 			display: block;
-			position: fixed;
+			position: relative;
+			max-width: 320px;
 			left: 0;
 			bottom: 0;
 		}
 	</style>
 </head>
 <body>
+	
 	<script src="./js/script.js"></script>
 	<script>
-		window.onload = RVPlayer.init(null, true);
+		window.onload = RVPlayer.init('box', true);
 	</script>
 </body>
 </html>

@@ -1,11 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
-var radio_vozes = require('./radio_vozes/main.js');
+window.RVPlayer = require('./radio_vozes/main.js');
 /* 
 	parametros: 
 	1) String - Tipo de player ('box' ou null)
 	2) Booleano - Embedar font ou não
 */
-radio_vozes.init('', true);
+//radio_vozes.init('', true);
 
 /*var request = new XDomainRequest();
 
@@ -56,9 +56,6 @@ module.exports = {
 			utils.initStream(audioDOM);
 			this.bindEvents();
 			ui.bindEvents();
-			/*utils.fetchLiveInfo(function(res){
-				
-			}.bind(this));*/
 			
 		}.bind(this));
 	},
@@ -92,7 +89,7 @@ module.exports = {
 			utils.getShowThumb(function(res){
 				player.updateThumb(res);
 			})
-			setTimeout(this.updateDisplay.bind(this), 3000);
+			//setTimeout(this.updateDisplay.bind(this), 3000);
 		}.bind(this));
 	}
 
@@ -103,7 +100,6 @@ module.exports = {
 	init: function(type, embedFonts){
 		if(embedFonts) this.appendHeader();
 		this.appendPlayer(type);
-		//this.renderDisplay(liveData);
 	},
 	setStreamURL: function(url){
 		var sources = playerDOM.querySelectorAll('audio source');

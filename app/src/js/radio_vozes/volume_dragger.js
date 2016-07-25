@@ -5,9 +5,6 @@ module.exports = function(volumeDOM){
 		progressBar = progressHolder.querySelectorAll('.progress')[0],
 		draggerHolder = volumeDOM.querySelectorAll('.dragger_holder')[0];
 
-		
-	console.log('>', draggerHolder)
-
 
 	dragger.onmousedown = function(){
 		//console.log('mousedown');

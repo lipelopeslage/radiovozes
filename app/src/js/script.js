@@ -1,4 +1,10 @@
 window.RVPlayer = require('./radio_vozes/main.js');
+
+window.RVPlayerEvent = function(type){
+	var evt = document.createEvent('Event');
+	evt.initEvent(type, true, true);
+	return evt;
+}
 /* 
 	parametros: 
 	1) String - Tipo de player ('box' ou null)

@@ -76,10 +76,10 @@ module.exports = {
 		toggleBtn.onclick = function(){
 			if(!toggleBtn.className.match(/playing/g)){
 				toggleBtn.className = toggleBtn.className + ' playing';
-				playerDOM.dispatchEvent(new Event('play'));
+				playerDOM.dispatchEvent(new RVPlayerEvent('play'));
 			}else{
 				toggleBtn.className = toggleBtn.className.replace(' playing', '');
-				playerDOM.dispatchEvent(new Event('pause'));
+				playerDOM.dispatchEvent(new RVPlayerEvent('pause'));
 			}
 		}
 	}

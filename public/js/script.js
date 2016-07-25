@@ -1,5 +1,11 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 window.RVPlayer = require('./radio_vozes/main.js');
+
+window.RVPlayerEvent = function(type){
+	var evt = document.createEvent('Event');
+	evt.initEvent(type, true, true);
+	return evt;
+}
 /* 
 	parametros: 
 	1) String - Tipo de player ('box' ou null)
@@ -89,7 +95,7 @@ module.exports = {
 			utils.getShowThumb(function(res){
 				player.updateThumb(res);
 			})
-			setTimeout(this.updateDisplay.bind(this), 3000);
+			//setTimeout(this.updateDisplay.bind(this), 3000);
 		}.bind(this));
 	}
 
@@ -173,10 +179,10 @@ module.exports = {
 		toggleBtn.onclick = function(){
 			if(!toggleBtn.className.match(/playing/g)){
 				toggleBtn.className = toggleBtn.className + ' playing';
-				playerDOM.dispatchEvent(new Event('play'));
+				playerDOM.dispatchEvent(new RVPlayerEvent('play'));
 			}else{
 				toggleBtn.className = toggleBtn.className.replace(' playing', '');
-				playerDOM.dispatchEvent(new Event('pause'));
+				playerDOM.dispatchEvent(new RVPlayerEvent('pause'));
 			}
 		}
 	}
@@ -252,9 +258,6 @@ module.exports = function(volumeDOM){
 		progressHolder = volumeDOM.querySelectorAll('.progress_bg')[0],
 		progressBar = progressHolder.querySelectorAll('.progress')[0],
 		draggerHolder = volumeDOM.querySelectorAll('.dragger_holder')[0];
-
-		
-	console.log('>', draggerHolder)
 
 
 	dragger.onmousedown = function(){

@@ -122,6 +122,7 @@
   margin-right: 5px;
   margin-left: 5px;
   height: 24px;
+  border: 0;
   vertical-align: middle;
   top: -2px;
 }
@@ -191,6 +192,7 @@
 }
 #rv-player-new[data-type=box] .holder {
   height: 100%;
+  margin: 0 10px;
 }
 #rv-player-new[data-type=box] .holder .logo {
   display: none;
@@ -316,6 +318,9 @@
   margin-left: 70px;
   z-index: 1;
 }
+html[data-mobile=true] #rv-player-new .holder .controls .volume {
+  display: none;
+}
 @media all and (max-width: 767px) {
   #rv-player-new:not([data-type=box]) {
     padding-top: 8px;
@@ -382,6 +387,9 @@
   }
 }
 @media all and (min-width: 768px) {
+  #rv-player-new:not([data-type=box]) .holder {
+    margin: 0 10px;
+  }
   #rv-player-new:not([data-type=box]) .holder .controls {
     padding-left: 24px;
   }
@@ -495,7 +503,7 @@
   }
 }
 @media all and (max-width: 1299px) {
-  #rv-player-new .holder {
+  #rv-player-new:not[data-type=box] .holder {
     margin: 0 10px;
   }
 }

@@ -2,6 +2,7 @@ var playerDOM, volumeDOM, streamURL, liveData;
 module.exports = {
 	init: function(type, embedFonts){
 		if(embedFonts) this.appendHeader();
+		if(RVPlayerIsMobile()) document.querySelector('html').setAttribute('data-mobile','true');
 		this.appendPlayer(type);
 	},
 	setStreamURL: function(url){

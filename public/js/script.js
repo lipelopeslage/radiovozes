@@ -1,10 +1,17 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);throw new Error("Cannot find module '"+o+"'")}var f=n[o]={exports:{}};t[o][0].call(f.exports,function(e){var n=t[o][1][e];return s(n?n:e)},f,f.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 window.RVPlayer = require('./radio_vozes/main.js');
 
-window.RVPlayerEvent = function(type){
-	var evt = document.createEvent('Event');
-	evt.initEvent(type, true, true);
+window.RVPlayerEvent = function(type, data){
+	var evt = (data) ? document.createEvent('CustomEvent') : document.createEvent('Event');
+	if(data)
+		evt.initCustomEvent(type, true, true, data);
+	else
+		evt.initEvent(type, true, true);
 	return evt;
+}
+
+window.RVPlayerIsMobile = function(){
+	return navigator.userAgent.match(/Android|Blackberry|iPhone|iPad|Opera Mini|IEMobile/i);
 }
 /* 
 	parametros: 
@@ -105,6 +112,7 @@ var playerDOM, volumeDOM, streamURL, liveData;
 module.exports = {
 	init: function(type, embedFonts){
 		if(embedFonts) this.appendHeader();
+		if(RVPlayerIsMobile()) document.querySelector('html').setAttribute('data-mobile','true');
 		this.appendPlayer(type);
 	},
 	setStreamURL: function(url){
@@ -307,7 +315,7 @@ module.exports = function(volumeDOM){
 		else if(p > 100)
 			p = 100;
 
-		volumeDOM.dispatchEvent(new CustomEvent('volume', {detail:{value:p/100}}));
+		volumeDOM.dispatchEvent(new RVPlayerEvent('volume', {value:p/100}));
 		updateView(p);
 	}
 
@@ -319,7 +327,7 @@ module.exports = function(volumeDOM){
 		}else{
 			volumeDOM.className = "volume muted";
 		}
-		console.log(p)
+		//console.log(p)
 		dragger.style.bottom = (p-100)+'%';
 		progressBar.style.height = p+'%';
 	}

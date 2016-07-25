@@ -53,7 +53,7 @@ module.exports = function(volumeDOM){
 		else if(p > 100)
 			p = 100;
 
-		volumeDOM.dispatchEvent(new CustomEvent('volume', {detail:{value:p/100}}));
+		volumeDOM.dispatchEvent(new RVPlayerEvent('volume', {value:p/100}));
 		updateView(p);
 	}
 
@@ -65,7 +65,7 @@ module.exports = function(volumeDOM){
 		}else{
 			volumeDOM.className = "volume muted";
 		}
-		console.log(p)
+		//console.log(p)
 		dragger.style.bottom = (p-100)+'%';
 		progressBar.style.height = p+'%';
 	}

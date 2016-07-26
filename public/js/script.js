@@ -182,7 +182,7 @@ module.exports = {
 	bindEvents: function(){
 		var toggleBtn = playerDOM.querySelectorAll('.controls .toggle')[0];
 		volumeDOM.addEventListener('volume', function(e){
-			playerDOM.dispatchEvent(new CustomEvent('volume', {detail:{value:e.detail.value}}));
+			playerDOM.dispatchEvent(new RVPlayerEvent('volume', {value:e.detail.value}));
 		});
 		toggleBtn.onclick = function(){
 			if(!toggleBtn.className.match(/playing/g)){

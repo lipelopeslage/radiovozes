@@ -235,6 +235,11 @@ html[data-mobile=true]
 		padding-top 8px
 		.holder
 			mobileHolder()
+			margin 0 10px
+			.controls
+				.toggle.playing
+					&:before
+						left -36px
 			
 
 @media all and (min-width: 768px)
@@ -243,10 +248,10 @@ html[data-mobile=true]
 		.controls
 			*
 				unselectable()			
-			padding-left 24px
+			padding-left 0
 			.toggle
-				roundborder(0 6px 6px 0)
-				padding 0 10px
+				roundborder(6px)
+				padding 0 10px 0 34px
 				height 20px
 				background-color $orange
 				&:before
@@ -256,7 +261,7 @@ html[data-mobile=true]
 					color $lead
 					font-family vz
 					top 0
-					left -24px
+					left 0
 					text-indent 8px
 					content '\e077'
 				&.playing:before

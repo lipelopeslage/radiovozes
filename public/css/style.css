@@ -325,6 +325,9 @@ html[data-mobile=true] #rv-player-new .holder .controls .volume {
   #rv-player-new:not([data-type=box]) {
     padding-top: 8px;
   }
+  #rv-player-new:not([data-type=box]) .holder {
+    margin: 0 10px;
+  }
   #rv-player-new:not([data-type=box]) .holder .logo {
     display: none;
   }
@@ -385,13 +388,16 @@ html[data-mobile=true] #rv-player-new .holder .controls .volume {
     margin-top: 0px;
     margin-left: 50px;
   }
+  #rv-player-new:not([data-type=box]) .holder .controls .toggle.playing:before {
+    left: -36px;
+  }
 }
 @media all and (min-width: 768px) {
   #rv-player-new:not([data-type=box]) .holder {
     margin: 0 10px;
   }
   #rv-player-new:not([data-type=box]) .holder .controls {
-    padding-left: 24px;
+    padding-left: 0;
   }
   #rv-player-new:not([data-type=box]) .holder .controls * {
     cursor: default;
@@ -401,10 +407,10 @@ html[data-mobile=true] #rv-player-new .holder .controls .volume {
     user-select: none;
   }
   #rv-player-new:not([data-type=box]) .holder .controls .toggle {
-    -moz-border-radius: 0 6px 6px 0;
-    -webkit-border-radius: 0 6px 6px 0;
-    border-radius: 0 6px 6px 0;
-    padding: 0 10px;
+    -moz-border-radius: 6px;
+    -webkit-border-radius: 6px;
+    border-radius: 6px;
+    padding: 0 10px 0 34px;
     height: 20px;
     background-color: #e85014;
   }
@@ -420,7 +426,7 @@ html[data-mobile=true] #rv-player-new .holder .controls .volume {
     color: #34342b;
     font-family: vz;
     top: 0;
-    left: -24px;
+    left: 0;
     text-indent: 8px;
     content: '\e077';
   }

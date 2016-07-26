@@ -1,6 +1,7 @@
 var gulp = require('gulp'),
 	stylus = require('gulp-stylus'),
 	watch = require('gulp-watch'),
+  uglify = require('gulp-uglify'),
 	myPaths = {
     stylus: {
       main: './app/src/stylus/style.styl'
@@ -20,20 +21,22 @@ function theError(error){
 gulp.task('browserify', function() {
     gulp.src('./app/src/js/script.js')
       .pipe(browserify())
+      .pipe(uglify())
       .on('error', theError)
       .pipe(gulp.dest('./public/js'))
 });
  
 gulp.task('stylus', function() {
   gulp.src(myPaths.stylus.main)
-    .pipe(stylus())
+    .pipe(stylus({compress:true}))
     .on('error', theError)
     .pipe(gulp.dest('./public/css'));
 
-  gulp.src(myPaths.stylus.main)
+
+  /*gulp.src(myPaths.stylus.main)
     .pipe(stylus())
     .on('error', theError)
-    .pipe(gulp.dest('./public/css'))
+    .pipe(gulp.dest('./public/css'))*/
 });
 
 gulp.task('watch', function() {

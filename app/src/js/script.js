@@ -12,6 +12,8 @@ window.RVPlayerEvent = function(type, data){
 window.RVPlayerIsMobile = function(){
 	return navigator.userAgent.match(/Android|Blackberry|iPhone|iPad|Opera Mini|IEMobile/i);
 }
+
+window.RVPlayer.init(true);
 /* 
 	parametros: 
 	1) String - Tipo de player ('box' ou null)

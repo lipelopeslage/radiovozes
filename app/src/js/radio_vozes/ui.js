@@ -1,9 +1,10 @@
 var playerDOM, volumeDOM, streamURL, liveData;
 module.exports = {
-	init: function(type, embedFonts){
-		if(embedFonts) this.appendHeader();
+	init: function(embedFonts){
+		if(embedFonts) this.appendLink('https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic');
+		this.appendLink('./css/style.css');
 		if(RVPlayerIsMobile()) document.querySelector('html').setAttribute('data-mobile','true');
-		this.appendPlayer(type);
+		this.appendPlayer();
 	},
 	setStreamURL: function(url){
 		var sources = playerDOM.querySelectorAll('audio source');
@@ -11,15 +12,15 @@ module.exports = {
 			dom.setAttribute('src', url);
 		});
 	},
-	appendPlayer: function(type){
-		playerDOM = this.getPlayerNode(type);
+	appendPlayer: function(){
+		playerDOM = this.getPlayerNode();
 		volumeDOM = playerDOM.querySelectorAll('.volume')[0]
 		require('./volume_dragger.js')(volumeDOM);
-		document.body.appendChild(playerDOM);
+		document.querySelector("#rv-player-new").appendChild(playerDOM);
 	},
-	appendHeader: function(){
+	appendLink: function(url){
 		var node = document.createElement('link');
-		node.setAttribute('href', 'https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic');
+		node.setAttribute('href', url);
 		node.setAttribute('rel', 'stylesheet');
 		node.setAttribute('type', 'text/css');
 		document.querySelectorAll('head')[0].appendChild(node);
@@ -33,20 +34,21 @@ module.exports = {
 	updateThumb: function(img){
 		playerDOM.querySelectorAll('.show-info .thumb')[0].innerHTML = '<img src="'+img+'">';
 	},
-	getPlayerNode: function(type){
+	getPlayerNode: function(){
 		var node = document.createElement('div'), html = '';
 		
-		html += '<div class="holder">';
+		//html += '<div class="holder">';
 		html += '<span class="logo"><svg width="20" height="20" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid"><g fill="#ffffff"><path d="M239.378 128c0 61.415-49.965 111.379-111.378 111.379-61.415 0-111.379-49.964-111.379-111.379C16.621 66.585 66.585 16.621 128 16.621c61.413 0 111.378 49.964 111.378 111.379zM128 0C57.42 0 0 57.42 0 128s57.42 128 128 128 128-57.42 128-128S198.58 0 128 0z"></path><path d="M121 40h14.934v44.804H121V40z"></path></g></svg></span>';
 		html += '<div class="controls"><button class="toggle"><span>No ar</span></button>';
 		html += this.getVolumeString()+this.getAudioString();
 		html += '<a class="show-info" href="https://radiovozes.com/radio-vozes"><span class="thumb"></span><span class="show-name">Rádio Vozes</span></a></div>';
-		html += '<div class="label"><strong class="track">Nat Pethit - Romeo</strong></div>';
+		html += '<div class="label"><strong class="track">...</strong></div>';
 		html += '<a class="schedule" href="https://radiovozes.com/programacao">Programação</a>';
-		html += '</div>';
+		//html += '</div>';
 
-		node.setAttribute('id', 'rv-player-new');
-		if(type == 'box') node.setAttribute('data-type', 'box')
+		//node.setAttribute('id', 'rv-player-new');
+		node.className = "holder";
+		//if(type == 'box') node.setAttribute('data-type', 'box')
 		node.innerHTML = html;	
 
 		return node;

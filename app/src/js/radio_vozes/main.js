@@ -13,7 +13,8 @@ module.exports = {
 			audioDOM = player.querySelectorAll('audio')[0];
 			utils.initStream(audioDOM);
 			this.bindEvents();
-			ui.bindEvents();
+
+			window.onload = ui.bindEvents;
 			
 		}.bind(this));
 	},
@@ -47,7 +48,7 @@ module.exports = {
 			utils.getShowThumb(function(res){
 				player.updateThumb(res);
 			})
-			//setTimeout(this.updateDisplay.bind(this), 3000);
+			setTimeout(this.updateDisplay.bind(this), 3000);
 		}.bind(this));
 	}
 

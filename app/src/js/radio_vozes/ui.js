@@ -48,6 +48,7 @@ module.exports = {
 
 		//node.setAttribute('id', 'rv-player-new');
 		node.className = "holder";
+		node.setAttribute('style', 'visibility:hidden;');
 		//if(type == 'box') node.setAttribute('data-type', 'box')
 		node.innerHTML = html;	
 
@@ -73,6 +74,9 @@ module.exports = {
 	},
 	bindEvents: function(){
 		var toggleBtn = playerDOM.querySelectorAll('.controls .toggle')[0];
+		
+		playerDOM.parentNode.style.visibility = 'visible';
+		playerDOM.removeAttribute('style');
 		volumeDOM.addEventListener('volume', function(e){
 			playerDOM.dispatchEvent(new RVPlayerEvent('volume', {value:e.detail.value}));
 		});

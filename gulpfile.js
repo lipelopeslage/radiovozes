@@ -32,11 +32,6 @@ gulp.task('stylus', function() {
     .on('error', theError)
     .pipe(gulp.dest('./public/css'));
 
-
-  /*gulp.src(myPaths.stylus.main)
-    .pipe(stylus())
-    .on('error', theError)
-    .pipe(gulp.dest('./public/css'))*/
 });
 
 gulp.task('watch', function() {

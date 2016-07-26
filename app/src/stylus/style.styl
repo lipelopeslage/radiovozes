@@ -56,6 +56,7 @@ unselectable()
 
 #rv-player-new
 	block-relative()
+	visibility hidden
 	width 100%
 	border-top 1px solid #f7f7f7
 	padding 8px 0
@@ -169,6 +170,7 @@ unselectable()
 	*
 		font-weight normal
 		-webkit-font-smoothing antialiased		
+		-moz-osx-font-smoothing grayscale
 	&[data-type=box]
 		height 160px
 		.holder
@@ -234,6 +236,10 @@ html[data-mobile=true]
 
 @media all and (max-width: 767px)
 	#rv-player-new:not([data-type=box])
+		block()
+		position fixed
+		left 0
+		bottom 0
 		padding-top 8px
 		.holder
 			mobileHolder()
@@ -245,82 +251,93 @@ html[data-mobile=true]
 			
 
 @media all and (min-width: 768px)
-	#rv-player-new:not([data-type=box]) .holder
-		margin 0 10px
-		.controls
-			*
-				unselectable()			
-			padding-left 0
-			.toggle
-				roundborder(6px)
-				padding 0 10px 0 34px
-				height 20px
-				background-color $orange
-				&:before
-					block-absolute()
-					dimensions(24px, 20px, #d7d7d7)
-					roundborder(2px 0 0 2px)				
-					color $lead
-					font-family vz
-					top 0
-					left 0
-					text-indent 8px
-					content '\e077'
-				&.playing:before
-					text-indent 6px
-					content '\e078'
-				
-			.volume
-				.slider
-					block-relative()
-					dimensions(40px, 110px, $lead)
-					none()
-					left -12px
-					top -132px
-					z-index 0
-					.progress_bg
-						block-relative()
-						dimensions(10px, 85px, #fff)
-						roundborder(5px)
-						top 15px
-						left 15px
-						
-					.progress
+	#rv-player-new:not([data-type=box]) 
+		block()
+		position fixed
+		left 0
+		bottom 0
+		.holder
+			margin 0 10px
+			.controls
+				*
+					unselectable()			
+				padding-left 0
+				@-moz-document url-prefix()
+					.toggle
+						top 1px
+						line-height 18px
+						&:before
+							line-height 20px
+				.toggle
+					roundborder(6px)
+					padding 0 10px 0 34px
+					height 20px
+					background-color $orange
+					&:before
 						block-absolute()
-						dimensions(100%, 100%, $orange)
-						roundborder(5px)
-						border-top 2px solid $orange
-						bottom -1px
+						dimensions(24px, 20px, #d7d7d7)
+						roundborder(2px 0 0 2px)				
+						color $lead
+						font-family vz
+						top 0
 						left 0
+						text-indent 8px
+						content '\e077'
+					&.playing:before
+						text-indent 6px
+						content '\e078'
 					
-					.dragger_holder
-						block-relative()
-						dimensions(10px, 76px/*, white*/)
-						roundborder(5px)
-						//opacity(.5)
-						padding-bottom 10px
-						top -70px
-						left 15px
-							
-					.dragger
-						block-relative()
-						dimensions(8px, 8px, white)
-						roundborder(10px)
-						//margin-top -8px
-						cursor pointer
-						left -1px
-						border 2px solid $orange
-						z-index 1
-				
-				&:hover
+				.volume
 					.slider
-						block()
+						block-relative()
+						dimensions(40px, 110px, $lead)
+						none()
+						left -12px
+						top -132px
+						z-index 0
+						.progress_bg
+							block-relative()
+							dimensions(10px, 85px, #fff)
+							roundborder(5px)
+							top 15px
+							left 15px
+							
+						.progress
+							block-absolute()
+							dimensions(100%, 100%, $orange)
+							roundborder(5px)
+							border-top 2px solid $orange
+							bottom -1px
+							left 0
 						
-		.label
-			relative()
-			display inline-block
-		.schedule
-			block()
+						.dragger_holder
+							block-relative()
+							dimensions(10px, 76px/*, white*/)
+							roundborder(5px)
+							//opacity(.5)
+							padding-bottom 10px
+							top -70px
+							left 15px
+								
+						.dragger
+							block-relative()
+							dimensions(8px, 8px, white)
+							roundborder(10px)
+							//margin-top -8px
+							cursor pointer
+							left -1px
+							border 2px solid $orange
+							z-index 1
+					
+					&:hover
+						.slider
+							block()
+							
+			.label
+				relative()
+				display inline-block
+			.schedule
+				block()
 
 
 @media all and (max-width: 1299px)

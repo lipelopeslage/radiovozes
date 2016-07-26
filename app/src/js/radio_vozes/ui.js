@@ -2,7 +2,7 @@ var playerDOM, volumeDOM, streamURL, liveData;
 module.exports = {
 	init: function(embedFonts){
 		if(embedFonts) this.appendLink('https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic');
-		this.appendLink('./css/style.css');
+		this.appendLink('//./css/style.css');
 		if(RVPlayerIsMobile()) document.querySelector('html').setAttribute('data-mobile','true');
 		this.appendPlayer();
 	},

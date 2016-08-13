@@ -11,10 +11,15 @@ module.exports = {
 			streamURL = streamData[0].url;
 			player = this.buildPlayer();
 			audioDOM = player.querySelectorAll('audio')[0];
-			utils.initStream(audioDOM);
-			this.bindEvents();
 
-			window.onload = ui.bindEvents;
+			utils.initStream(audioDOM);
+			player.setStreamURL(streamURL);
+			//this.bindEvents();
+			window.onload = function(){
+				module.exports.bindEvents();
+				ui.bindEvents();
+			}
+			//window.onload = ui.bindEvents;
 			
 		}.bind(this));
 	},
@@ -26,6 +31,8 @@ module.exports = {
 		return ui.getDOM();
 	},
 	bindEvents: function(){
+		var socket = (typeof io == 'undefined') ? {on: function(){}} : io('wss://radiovozes.com:8001')//(io != undefined) ? io('wss://radiovozes.com:8001') : {on:null};
+
 		player.addEventListener('play', function(){
 			utils.playAudio();
 		});
@@ -38,9 +45,11 @@ module.exports = {
 			utils.setVolume(e.detail.value);
 		});
 
-		player.setStreamURL(streamURL);
+		socket.on('metadata', function (data) {
+			this.updateDisplay();
+		}.bind(this));
 
-		this.updateDisplay();
+		//this.updateDisplay();
 	},
 	updateDisplay: function(){
 		utils.fetchLiveInfo(function(res){

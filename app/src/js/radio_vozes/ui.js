@@ -3,6 +3,7 @@ module.exports = {
 	init: function(embedFonts){
 		if(embedFonts) this.appendLink('https://fonts.googleapis.com/css?family=Lato:400,700,700italic,400italic');
 		this.appendLink('https://radiovozes.com/brand/player/css/style.css');
+		this.appendScript('//cdn.socket.io/socket.io-1.4.5.js');
 		if(RVPlayerIsMobile()) document.querySelector('html').setAttribute('data-mobile','true');
 		this.appendPlayer();
 	},
@@ -17,6 +18,11 @@ module.exports = {
 		volumeDOM = playerDOM.querySelectorAll('.volume')[0]
 		require('./volume_dragger.js')(volumeDOM);
 		document.querySelector("#rv-player-new").appendChild(playerDOM);
+	},
+	appendScript: function(url){
+		var node = document.createElement('script');
+		node.setAttribute('src', url);
+		document.querySelectorAll('head')[0].appendChild(node);
 	},
 	appendLink: function(url){
 		var node = document.createElement('link');
